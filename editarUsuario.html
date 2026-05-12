@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" href="musica1.css">
+</head>
+<body>
+
+<h2>Editar Usuario</h2>
+
+<form action="actualizar.php" method="POST">
+
+
+    <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+
+    <label for="cedula">Cédula:</label><br>
+    <input type="text" id="cedula" name="cedula" value="<?= htmlspecialchars($usuario['cedula']) ?>" required><br><br>
+
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" required><br><br>
+
+    <label for="correo">Correo:</label><br>
+    <input type="email" id="correo" name="correo" value="<?= htmlspecialchars($usuario['correo']) ?>" required><br><br>
+
+    <input type="submit" value="Actualizar">
+</form>
+
+</body>
+</html>

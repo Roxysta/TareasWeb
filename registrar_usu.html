@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="musica1.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h2>Formulario de Registro</h2>
+        <p class="descripcion">
+            Complete los siguientes datos para crear una cuenta.
+        </p>
+
+        <form action="guardarUsu.php" method="POST">
+
+            <div class="grupo">
+                <label for="nombre">Nombres</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="grupo">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" name="apellidos" required>
+            </div>
+
+            <div class="grupo">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
+
+            <div class="grupo">
+                <label for="clave">Contraseña</label>
+                <input type="password" id="clave" name="clave" required>
+            </div>
+
+            <button type="submit">Registrar Usuario</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
