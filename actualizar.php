@@ -1,21 +1,28 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conexion = new mysqli("localhost", "root", "", "sistema_php");
-    if ($conexion->connect_error) die("Error de conexión");
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: inicioSesion.php");
+    exit;
+}
 
-    $id = intval($_POST['id']);
+include 'conexionBD.php';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $id     = intval($_POST['id']);
     $cedula = intval($_POST['cedula']);
-    $nombre = $_POST['nombre'];
-    $correo = $_POST['correo'];
-    $fecha_registro = date("Y-m-d H:i:s");
+    $nombre = trim($_POST['nombre'] ?? '');
+    $correo = trim($_POST['correo'] ?? '');
 
-    $stmt = $conexion->prepare("UPDATE usuarios SET cedula = ?, nombre = ?, apellidos = ?, correo = ?, fecha_registro = ? WHERE id = ?");
-    $stmt->bind_param("iissis", $cedula, $nombre, $apellidos, $correo, $fecha_registro, $id);
+    $stmt = $conexion->prepare(
+        "UPDATE usuarios SET cedula = ?, nombre = ?, correo = ? WHERE id = ?"
+    );
+    $stmt->bind_param("issi", $cedula, $nombre, $correo, $id);
 
     if ($stmt->execute()) {
         header("Location: lista_Usuario.php");
+        exit;
     } else {
-        echo "Error al actualizar el usuario.";
+        echo "Error al actualizar: " . htmlspecialchars($conexion->error);
     }
 
     $stmt->close();
