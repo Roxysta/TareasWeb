@@ -8,10 +8,7 @@ if (!isset($_SESSION['usuario_id'])) {
  
 require_once 'conexionBD.php';
  
-$error = '';
-$exito = '';
- 
-// Cargar datos actuales del usuario
+
 $stmt = $conexion->prepare(
     'SELECT id, cedula, nombre, correo, fecha_registro FROM usuarios WHERE id = ?'
 );
@@ -26,93 +23,99 @@ if (!$usuario) {
     exit;
 }
  
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = trim($_POST['nombre'] ?? '');
-    $correo = trim($_POST['correo'] ?? '');
- 
-    if (empty($nombre) || empty($correo)) {
-        $error = 'Nombre y correo son obligatorios.';
-    } elseif (strlen($nombre) > 100) {
-        $error = 'El nombre no puede superar 100 caracteres.';
-    } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        $error = 'El correo no tiene un formato válido.';
-    } else {
-        // Verificar correo duplicado (excluyendo al usuario actual)
-        $check = $conexion->prepare(
-            'SELECT id FROM usuarios WHERE correo = ? AND id != ?'
-        );
-        $check->bind_param('si', $correo, $_SESSION['usuario_id']);
-        $check->execute();
-        $check->store_result();
- 
-        if ($check->num_rows > 0) {
-            $error = 'Ese correo ya está registrado por otro usuario.';
-        } else {
-            $upd = $conexion->prepare(
-                'UPDATE usuarios SET nombre = ?, correo = ? WHERE id = ?'
-            );
-            $upd->bind_param('ssi', $nombre, $correo, $_SESSION['usuario_id']);
- 
-            if ($upd->execute()) {
-                $_SESSION['usuario_nombre'] = $nombre;
-                $_SESSION['usuario_correo'] = $correo;
-                $usuario['nombre'] = $nombre;
-                $usuario['correo'] = $correo;
-                $exito = 'Perfil actualizado correctamente.';
-            } else {
-                $error = 'Error al actualizar. Intente de nuevo.';
-            }
-            $upd->close();
-        }
-        $check->close();
-    }
-}
- 
 $conexion->close();
+
+$palabras = explode(' ', trim($usuario['nombre']));
+$iniciales = strtoupper(
+    substr($palabras[0], 0, 1) . (isset($palabras[1]) ? substr($palabras[1], 0, 1) : '')
+    );
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil</title>
-    <link rel="stylesheet" href="estilosCSS/estiloPerfil.css">
+    <link rel="stylesheet" href="estilosCSS/perfil.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
-<div class="card">
-    <h2>Mi Perfil</h2>
- 
-    <?php if ($error): ?>
-        <p class="msg error"><?= htmlspecialchars($error) ?></p>
-    <?php endif; ?>
-    <?php if ($exito): ?>
-        <p class="msg exito"><?= htmlspecialchars($exito) ?></p>
-    <?php endif; ?>
- 
-    <form method="POST">
-        <label>Cédula</label>
-        <input type="text" value="<?= htmlspecialchars($usuario['cedula']) ?>" disabled>
- 
-        <label>Nombre</label>
-        <input type="text" name="nombre"
-               value="<?= htmlspecialchars($usuario['nombre']) ?>" required maxlength="100">
- 
-        <label>Correo electrónico</label>
-        <input type="email" name="correo"
-               value="<?= htmlspecialchars($usuario['correo']) ?>" required>
- 
-        <label>Fecha de registro</label>
-        <input type="text" value="<?= htmlspecialchars($usuario['fecha_registro']) ?>" disabled>
- 
-        <button type="submit">Guardar cambios</button>
-    </form>
- 
-    <div class="links">
-        <a href="cambiar_password.php">Cambiar contraseña</a>
-        <a href="lista_Usuario.php">Ver lista de usuarios</a>
-        <a href="logout.php">Cerrar sesión</a>
+<div class="perfil-card">
+
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <div class="avatar-circle">
+            <?= htmlspecialchars($iniciales) ?>
+        </div>
+        <div>
+            <p class="mb-1 fw-500" style="font-size:18px;">
+                <?= htmlspecialchars($usuario['nombre']) ?>
+            </p>
+            <span class="badge-cedula">
+                <i class="bi bi-fingerprint me-1"></i><?= htmlspecialchars($usuario['cedula']) ?>
+            </span>
+        </div>
     </div>
+
+    <hr style="border-color: rgba(0,0,0,0.07); margin: 0 0 0.25rem;">
+
+    <!-- Campos -->
+    <div class="campo-fila">
+        <div class="campo-icono"><i class="bi bi-person"></i></div>
+        <div>
+            <p class="campo-label">Nombre completo</p>
+            <p class="campo-valor"><?= htmlspecialchars($usuario['nombre']) ?></p>
+        </div>
+    </div>
+
+    <div class="campo-fila">
+        <div class="campo-icono"><i class="bi bi-envelope"></i></div>
+        <div>
+            <p class="campo-label">Correo electrónico</p>
+            <p class="campo-valor"><?= htmlspecialchars($usuario['correo']) ?></p>
+        </div>
+    </div>
+
+    <div class="campo-fila">
+        <div class="campo-icono"><i class="bi bi-calendar3"></i></div>
+        <div>
+            <p class="campo-label">Fecha de registro</p>
+            <p class="campo-valor"><?= htmlspecialchars($usuario['fecha_registro']) ?></p>
+        </div>
+    </div>
+
+    <hr style="border-color: rgba(0,0,0,0.07); margin: 0.25rem 0 1rem;">
+
+    <!-- Acciones -->
+    <div class="d-flex flex-column gap-2">
+
+        <a href="cambiarContra.php" class="btn-perfil">
+            <i class="bi bi-key" style="font-size:17px;"></i>
+            Cambiar contraseña
+            <i class="bi bi-chevron-right chevron"></i>
+        </a>
+
+        <a href="editarUsu.php?id=<?= $_SESSION['usuario_id'] ?>" class="btn-perfil">
+            <i class="bi bi-pencil-square" style="font-size:17px;"></i>
+            Editar perfil
+            <i class="bi bi-chevron-right chevron"></i>
+        </a>
+
+        <a href="lista_Usuario.php" class="btn-perfil">
+            <i class="bi bi-people" style="font-size:17px;"></i>
+            Ver lista de usuarios
+            <i class="bi bi-chevron-right chevron"></i>
+        </a>
+
+        <a href="logout.php" class="btn-perfil danger">
+            <i class="bi bi-box-arrow-right" style="font-size:17px;"></i>
+            Cerrar sesión
+            <i class="bi bi-chevron-right chevron"></i>
+        </a>
+    </div>
+
 </div>
+
 </body>
 </html>
- 

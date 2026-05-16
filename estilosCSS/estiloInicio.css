@@ -99,7 +99,6 @@ button:hover {
     text-decoration: underline;
 }
 
-/* Estilo para mensajes de error */
 .msg.error {
     background-color: rgba(255, 100, 100, 0.1);
     color: #ff6b6b;

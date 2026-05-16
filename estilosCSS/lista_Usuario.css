@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg:        #0d1117;
+    --bg2:       #161b22;
+    --bg3:       #1c2330;
+    --border:    #30363d;
+    --accent:    #00e5a0;
+    --accent2:   #00c4ff;
+    --text:      #e6edf3;
+    --muted:     #7d8590;
+    --danger:    #ff5f5f;
+    --danger-bg: rgba(255,95,95,.12);
+    --radius:    12px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,229,160,.08), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 80%,  rgba(0,196,255,.06), transparent);
+}
+
+/* ── contenedor ── */
+.contenedor {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ── encabezado ── */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── botón / links de acción ── */
+.btn-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #0d1117;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .85rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity .2s, transform .2s;
+}
+.btn-new:hover { opacity: .85; transform: translateY(-1px); }
+
+/* ── tabla ── */
+.table-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+}
+
+thead {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+}
+
+thead th {
+    font-family: 'Syne', sans-serif;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 18px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(0,229,160,.04); }
+
+tbody td {
+    padding: 14px 18px;
+    color: var(--text);
+    vertical-align: middle;
+}
+
+/* cédula — monospace */
+tbody td:first-child {
+    font-family: 'Courier New', monospace;
+    font-size: .85rem;
+    color: var(--accent2);
+}
+
+/* fecha — muted */
+tbody td:nth-child(4) {
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+/* ── acciones ── */
+.acciones { display: flex; gap: 10px; }
+
+.btn-edit, .btn-del {
+    padding: 5px 14px;
+    border-radius: 6px;
+    font-size: .8rem;
+    font-weight: 600;
+    font-family: 'Syne', sans-serif;
+    text-decoration: none;
+    transition: opacity .2s, transform .15s;
+    white-space: nowrap;
+}
+.btn-edit:hover, .btn-del:hover { opacity: .8; transform: translateY(-1px); }
+
+.btn-edit {
+    background: rgba(0,229,160,.15);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,.3);
+}
+.btn-del {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid rgba(255,95,95,.25);
+}
+
+/* ── vacío ── */
+.vacio {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: .95rem;
+}
+
+/* ── footer link ── */
+.footer-link {
+    margin-top: 24px;
+    font-size: .85rem;
+}
+.footer-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+.footer-link a:hover { text-decoration: underline; }
+
+/* ── responsive ── */
+@media (max-width: 640px) {
+    table { display: block; overflow-x: auto; }
+    .acciones { flex-direction: column; gap: 6px; }
+}

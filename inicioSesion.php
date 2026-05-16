@@ -6,7 +6,7 @@ if (isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-require_once 'conexionBD.php';
+include 'conexionBD.php';
 
 $error = '';
 

@@ -24,7 +24,6 @@
       position: relative;
     }
  
-    /* Ambient blobs */
     body::before, body::after {
       content: '';
       position: fixed;
@@ -59,7 +58,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
  
-    /* Badge */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -105,7 +103,6 @@
       font-weight: 300;
     }
  
-    /* Card */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -174,7 +171,6 @@
     input:focus ~ .input-icon,
     .input-wrap:focus-within .input-icon { color: var(--accent); }
  
-    /* Password toggle */
     .toggle-pw {
       position: absolute;
       right: 14px;
@@ -203,7 +199,6 @@
       transition: width .4s ease, background .4s ease;
     }
  
-    /* Submit button */
     .btn {
       margin-top: 8px;
       width: 100%;
@@ -246,7 +241,6 @@
     }
     .footer-link a:hover { text-decoration: underline; }
  
-    /* Toast feedback */
     .toast {
       display: none;
       margin-top: 16px;

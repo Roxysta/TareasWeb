@@ -16,8 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre     = trim($_POST['nombre']    ?? '');
     $correo     = trim($_POST['correo']    ?? '');
     $contrasena = $_POST['password']       ?? '';
+    $fecha_registro = date('Y-m-d H:i:s');
  
-    // Validaciones
+    // Validacion
     if (empty($cedula) || empty($nombre) || empty($correo) || empty($contrasena)) {
         $error = 'Todos los campos son obligatorios.';
     } elseif (!ctype_digit($cedula)) {
@@ -26,8 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Formato de correo inválido.';
     } elseif (strlen($contrasena) < 8) {
         $error = 'La contraseña debe tener al menos 8 caracteres.';
-    } else {
-        // Verificar correo duplicado
+    } 
+    
+     // Verificar correo 
+    else {
         $check = $conexion->prepare('SELECT id FROM usuarios WHERE correo = ?');
         $check->bind_param('s', $correo);
         $check->execute();
@@ -86,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php else: ?>
  
     <div class="card">
-        <form class="form-grid" action="guardarUsu.php" method="POST" id="regForm">
+        <form class="form-grid" action="" method="POST" id="regForm">
  
             <div class="field">
                 <label for="cedula">Número de cédula</label>
