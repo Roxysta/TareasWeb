@@ -1,12 +1,11 @@
 <?php
 session_start();
-// Proteger: solo usuarios autenticados pueden borrar
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: inicioSesion.php");
     exit;
 }
 
-include 'conexionBD.php';
+require_once 'conexionBD.php';
 
     if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
