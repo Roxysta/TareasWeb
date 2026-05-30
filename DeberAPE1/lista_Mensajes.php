@@ -66,7 +66,7 @@ $conexion->close();
         </div>
     <?php endif; ?>
 
-    <p class="footer-link"><a href="index.html">← Contacto del Estudiante</a></p>
+    <p class="footer-link"><a href="portada.html">← Contacto del Estudiante</a></p>
 </div>
 </body>
 </html>

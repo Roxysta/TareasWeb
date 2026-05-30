@@ -1,8 +1,8 @@
 <?php
-$host     = 'sql305.infinityfree.com';
-$usuario  = 'if0_42050770';
-$contrasena = 'TGuimlxDh3zW';
-$base_datos = 'if0_42050770_pagina_web';
+$host     = 'localhost';
+$usuario  = 'user_pagina';
+$contrasena = 'Clavepagina123!';
+$base_datos = 'pagina_web';
 
 $conexion = new mysqli($host, $usuario, $contrasena, $base_datos);
 
