@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctame — Richard Zambrano</title>
+    <link rel="stylesheet" href="estilos/estiloFormulario.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="nav-brand">R.Z</a>
+        <ul>
+            <li><a href="iniciarSesion.php">Ve el Mensaje que enviaste</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="contact-wrapper">
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+
+    <h1>Mándame un <em>mensaje</em></h1>
+    <p class="subtitulo">Respondo todos los mensajes. Con gusto me pongo en contacto contigo.</p>
+
+    <div id="msg-feedback"></div>
+
+    <div class="form-card">
+        <form id="contactForm" action="procesarMensaje.php" method="POST">
+
+            <div class="field">
+                <label for="nombre">Tu nombre</label>
+                <input type="text" id="nombre" name="nombre"
+                       placeholder="Nombre y apellido" required maxlength="100">
+            </div>
+
+            <div class="field">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo"
+                       placeholder="ejemplo@correo.com" required maxlength="150">
+            </div>
+
+            <div class="field">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje"
+                          placeholder="Escribe tu mensaje aquí..."
+                          required maxlength="1000"
+                          oninput="updateCount(this)"></textarea>
+                <div class="char-count"><span id="charCount">0</span> / 1000</div>
+            </div>
+
+            <button type="submit" class="btn-send" id="btnEnviar">Enviar mensaje →</button>
+        </form>
+    </div>
+</div>
+
+/**──JavaScript extra para interactividad──**/
+<script>
+function updateCount(el) {
+    document.getElementById('charCount').textContent = el.value.length;
+}
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnEnviar');
+    const feedback = document.getElementById('msg-feedback');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    const formData = new FormData(this);
+
+    try {
+        const res = await fetch('procesarMensaje.php', { method: 'POST', body: formData });
+        const text = await res.text();
+        if (text.trim() === 'ok') {
+            feedback.className = 'exito';
+            feedback.textContent = '¡Mensaje enviado! Me pondré en contacto pronto.';
+            this.reset();
+            document.getElementById('charCount').textContent = '0';
+        } else {
+            throw new Error(text);
+        }
+    } catch (err) {
+        feedback.className = 'error';
+        feedback.textContent = 'Hubo un error al enviar. Intenta de nuevo.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Enviar mensaje →';
+    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+</body>
+</html>
