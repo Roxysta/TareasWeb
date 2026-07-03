@@ -1,0 +1,43 @@
+ body { justify-content: center; align-items: center; min-height: 100vh; }
+        .login-wrap {
+            width: 100%;
+            max-width: 380px;
+            padding: 1.25rem;
+        }
+        .login-brand {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login-brand .brand-icon { font-size: 1.8rem; color: var(--accent); display: block; margin-bottom: 0.4rem; }
+        .login-brand .brand-name { font-family: var(--mono); font-size: 1.1rem; font-weight: 600; color: var(--text); }
+        .login-brand .brand-dot  { color: var(--accent); }
+        .login-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; font-family: var(--mono); }
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 0.4rem; letter-spacing: 1px; text-transform: uppercase; }
+        .form-input {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 0.88rem;
+            padding: 0.65rem 0.9rem;
+            transition: border-color .15s;
+            outline: none;
+        }
+        .form-input:focus { border-color: var(--accent); }
+        .form-input::placeholder { color: var(--muted); opacity: 0.6; }
+        .btn-login { width: 100%; padding: 0.75rem; margin-top: 0.5rem; font-size: 0.88rem; }
+        .hint-box {
+            margin-top: 1.25rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.85rem 1rem;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--muted);
+        }
+        .hint-box strong { color: var(--accent); }
+        .hint-row { display: flex; justify-content: space-between; padding: 0.2rem 0; }

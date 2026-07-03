@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ── Variables (mismo sistema que el resto del proyecto) ── */
 :root {
     --ink:      #0e0e0e;
     --cream:    #f5f0e8;
@@ -12,7 +11,6 @@
     --shadow:   0 4px 24px rgba(14,14,14,.10);
 }
 
-/* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -26,7 +24,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Grain overlay igual que el resto del proyecto */
 body::before {
     content: '';
     position: fixed;

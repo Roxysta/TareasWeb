@@ -8,8 +8,6 @@
             --card-bg:  #ffffff;
             --shadow:   0 4px 24px rgba(14,14,14,.10);
         }
- 
-        /* ── Reset & Base ── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
         body {
@@ -21,7 +19,6 @@
             overflow-x: hidden;
         }
  
-        /* ── Grain overlay ── */
         body::before {
             content: '';
             position: fixed;
@@ -31,8 +28,7 @@
             z-index: 0;
             opacity: .6;
         }
- 
-        /* ── Header / Nav ── */
+
         header {
             position: sticky;
             top: 0;
@@ -79,14 +75,12 @@
  
         header nav ul li a:hover { color: var(--rust); }
  
-        /* ── Hero / Main ── */
         main {
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem 5rem;
         }
  
-        /* Hero section */
         .hero-section {
             display: grid;
             grid-template-columns: 1fr 420px;
@@ -117,7 +111,6 @@
             margin-bottom: 2.4rem;
         }
  
-        /* CTA Buttons */
         .btn-group {
             display: flex;
             gap: 1rem;
@@ -165,8 +158,7 @@
             color: var(--cream);
             transform: translateY(-2px);
         }
- 
-        /* Hero image */
+
         .hero-image figure {
             position: relative;
         }
@@ -201,14 +193,12 @@
             text-align: center;
         }
  
-        /* ── Divider ── */
         .divider {
             border: none;
             border-top: 1px solid var(--sand);
             margin: 3rem 0;
         }
  
-        /* ── Biography ── */
         .bio-section {
             display: grid;
             grid-template-columns: 220px 1fr;
@@ -248,7 +238,6 @@
             color: var(--ink);
         }
  
-        /* ── Hobbies ── */
         .hobbies-section {
             padding: 3rem 0;
         }
@@ -278,8 +267,7 @@
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1.5rem;
         }
- 
-        /* Hobby card */
+
         .card {
             background: var(--card-bg);
             border-radius: 6px;
@@ -327,7 +315,6 @@
             line-height: 1.65;
         }
  
-        /* ── Pages section ── */
         .pages-section {
             padding: 3rem 0;
         }
@@ -377,8 +364,7 @@
         }
  
         .page-card:hover .page-card-arrow { transform: translateX(6px); }
- 
-        /* ── Footer ── */
+
         footer {
             background: var(--ink);
             color: rgba(245,240,232,.5);
@@ -390,7 +376,7 @@
  
         footer strong { color: var(--cream); font-weight: 500; }
  
-        /* ── Animations ── */
+        /* ── Animaciones ── */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(28px); }
             to   { opacity: 1; transform: translateY(0); }

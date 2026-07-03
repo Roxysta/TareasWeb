@@ -1,0 +1,31 @@
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+        }
+        .user-name   { color: var(--text); }
+        .rol-badge {
+            padding: 0.15rem 0.55rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .rol-admin   { background: rgba(45,212,191,.15); color: var(--accent); }
+        .rol-usuario { background: rgba(59,130,246,.15);  color: #60A5FA; }
+        .btn-logout  {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: color .15s, border-color .15s;
+        }
+        .btn-logout:hover { color: var(--danger); border-color: var(--danger); }
+        .subido-por { font-size: 0.68rem; color: var(--muted); }

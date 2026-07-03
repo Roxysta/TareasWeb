@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════════════
+# .htaccess — Protección del directorio /uploads
+# Objetivo: impedir que cualquier archivo subido sea ejecutado
+#            como script por el servidor web (PHP, CGI, etc.)
+# ═══════════════════════════════════════════════════════════════
+
+# 1. Deshabilitar la ejecución de PHP dentro de esta carpeta
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# 2. Forzar descarga (Content-Disposition) para todos los archivos
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Content-Disposition "attachment"
+</IfModule>
+
+# 3. Sobrescribir el tipo MIME para evitar confusiones
+<IfModule mod_mime.c>
+    RemoveHandler .php .php3 .php4 .php5 .php7 .phtml .cgi .pl .py .rb .sh
+    RemoveType    .php .php3 .php4 .php5 .php7 .phtml
+</IfModule>
+
+# 4. Deshabilitar CGI y SSI
+Options -ExecCGI -Indexes
+AddHandler cgi-script .php .pl .py .cgi
