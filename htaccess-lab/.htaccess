@@ -1,0 +1,36 @@
+# =====================================================================
+# Archivo .htaccess principal - Laboratorio practico
+# Carpeta: /htaccess-lab
+# =====================================================================
+
+# Habilita el motor de reescritura de Apache (mod_rewrite)
+RewriteEngine On
+
+# ---------------------------------------------------------------------
+# 1) REDIRECCION AUTOMATICA DE HTTP A HTTPS
+# ---------------------------------------------------------------------
+# %{HTTPS} off  -> se cumple cuando la conexion NO viene por SSL
+# La regla toma la URL solicitada (%{REQUEST_URI}) y hace una
+# redireccion permanente (301) hacia la misma URL pero con https://
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ---------------------------------------------------------------------
+# 2) PAGINA DE ERROR 404 PERSONALIZADA
+# ---------------------------------------------------------------------
+# Cuando Apache no encuentra un recurso solicitado, en lugar de mostrar
+# la pagina de error generica del servidor, muestra este archivo propio.
+ErrorDocument 404 /404.php
+
+# ---------------------------------------------------------------------
+# 3) REESCRITURA DE URL AMIGABLE (mod_rewrite)
+# ---------------------------------------------------------------------
+# Convierte:   misitio.com/producto/3
+# En:          misitio.com/producto.php?id=3
+# ^producto/([0-9]+)/?$  -> captura el numero despues de "producto/"
+# $1 dentro de la regla es ese numero capturado
+RewriteRule ^producto/([0-9]+)/?$ producto.php?id=$1 [L,QSA]
+
+# [L]   -> ultima regla a aplicar si esta coincide (Last)
+# [QSA] -> conserva parametros GET adicionales que ya traiga la URL (Query String Append)
+# [R=301] -> indica una redireccion HTTP permanente visible en el navegador

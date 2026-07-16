@@ -110,7 +110,7 @@ if (!empty($_GET['msg'])) {
         </form>
     </section>
 
-    <!-- ── SECCIÓN: LISTADO ── -->
+    <!-- ── LISTADO ── -->
     <section class="card" aria-labelledby="titulo-lista">
         <h2 id="titulo-lista" class="card-titulo">
             <span class="num">02</span> Archivos subidos
@@ -187,7 +187,7 @@ if (!empty($_GET['msg'])) {
 
 </main>
 
-<!-- ════════════════ MODAL CONFIRMACIÓN (solo admin lo ve) ════════════════ -->
+<!-- ════════════════CONFIRMACIÓN (solo el admin lo ve) ════════════════ -->
 <?php if ($esAdmin): ?>
 <div id="modal" class="modal-overlay" role="dialog" aria-modal="true"
      aria-labelledby="modal-titulo" hidden>
