@@ -1,8 +1,0 @@
-# ==========================================================
-# Proteccion de carpeta con usuario y contrasena (Basic Auth)
-# ==========================================================
-
-AuthType Basic
-AuthName "Zona restringida - Ingrese sus credenciales"
-AuthUserFile "/ruta/completa/al/proyecto/htaccess-lab/.htpasswd"
-Require valid-user
