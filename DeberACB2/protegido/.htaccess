@@ -1,0 +1,19 @@
+# =====================================================================
+# .htaccess - Protección por contraseña de esta carpeta
+# =====================================================================
+
+# Texto que se muestra en el cuadro de login del navegador
+AuthType Basic
+AuthName "Zona restringida - Ingrese sus credenciales"
+
+# Ruta ABSOLUTA al archivo .htpasswd que contiene usuario y contraseña
+# encriptada. Debe ir con ruta completa del servidor, no relativa.
+# Ejemplo en XAMPP (Windows):
+#   AuthUserFile "C:/xampp/htdocs/miproyecto/protegido/.htpasswd"
+# Ejemplo en Linux/MAMP:
+#   AuthUserFile "/Applications/MAMP/htdocs/miproyecto/protegido/.htpasswd"
+AuthUserFile "D:/Cosas UNI/htdocs/DesarrolloWeb/DeberACB2/protegido/.htpasswd"
+
+# Exige que el usuario esté autenticado (cualquier usuario válido del
+# archivo .htpasswd) para poder ver el contenido de esta carpeta
+Require valid-user

@@ -1,0 +1,35 @@
+# =====================================================================
+# .htaccess principal - Mi Sitio
+# =====================================================================
+
+# Habilitar el motor de reescritura de Apache (necesario para todo lo demás)
+RewriteEngine On
+
+# ---------------------------------------------------------------------
+# 1) REDIRECCIÓN AUTOMÁTICA DE HTTP A HTTPS
+# ---------------------------------------------------------------------
+# %{HTTPS} off  -> se cumple cuando la petición NO viene por https
+# Si se cumple, redirige (301 = permanente) a la misma URL pero con https://
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ---------------------------------------------------------------------
+# 2) PÁGINA DE ERROR 404 PERSONALIZADA
+# ---------------------------------------------------------------------
+# Cuando Apache no encuentra un recurso, en vez de mostrar el error
+# genérico del servidor, muestra este archivo.
+ErrorDocument 404 /404.html
+
+# ---------------------------------------------------------------------
+# 3) REESCRITURA DE URL AMIGABLE
+#    /producto/3   ==>   /producto.php?id=3
+# ---------------------------------------------------------------------
+
+RewriteRule ^producto/([0-9]+)/?$ producto.php?id=$1 [L,QSA]
+
+# =====================================================================
+# NOTA: la protección con contraseña de /protegido/ se configura en un
+# .htaccess independiente DENTRO de esa carpeta (protegido/.htaccess),
+# porque AuthType/Require solo deben aplicar a esa ruta, no a todo el
+# sitio.
+# =====================================================================
